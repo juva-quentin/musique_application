@@ -25,6 +25,8 @@ class PlayerManager {
 
   late String duration;
 
+  final buttonNotifier = ValueNotifier<ButtonState>(ButtonState.paused);
+
   void next() {
     if (index >= myMusicList.length - 1) {
       index = 0;
@@ -58,8 +60,11 @@ class PlayerManager {
       final processingState = playerState.processingState;
       if (processingState == ProcessingState.loading ||
           processingState == ProcessingState.buffering) {
+        play = false;
       } else if (!isPlaying) {
+        play = false;
       } else if (processingState != ProcessingState.completed) {
+        play = true;
       } else {
         _player.seek(Duration.zero);
         _player.pause();
@@ -99,7 +104,6 @@ class PlayerManager {
   }
 
   String getDuration() {
-    print(duration);
     return duration;
   }
 
@@ -133,3 +137,5 @@ class ProgressBarState {
   final Duration buffered;
   final Duration total;
 }
+
+enum ButtonState { paused, playing, loading }

@@ -31,6 +31,12 @@ class _PlayerState extends State<Player> with TickerProviderStateMixin {
     super.dispose();
   }
 
+  next() {
+    setState(() {
+      player.next();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
